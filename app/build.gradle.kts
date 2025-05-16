@@ -91,11 +91,22 @@ dependencies {
     implementation(libs.okhttpLogging)
     implementation(libs.playServicesLocation)
     implementation("androidx.activity:activity-compose:1.8.2")
-    testImplementation(libs.androidx.junit)
+    
+    // Test dependencies
     testImplementation(libs.junit)
-    testImplementation(libs.junitKtx)
-    testImplementation(libs.androidx.espresso.core)
     testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("app.cash.turbine:turbine:1.0.0") // For testing Flow
+    testImplementation("com.google.truth:truth:1.1.5") // For more readable assertions
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // Unit testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("io.mockk:mockk:1.13.8")
+
+    // Optional AndroidX test dependencies if needed
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation("io.mockk:mockk-android:1.13.5")
