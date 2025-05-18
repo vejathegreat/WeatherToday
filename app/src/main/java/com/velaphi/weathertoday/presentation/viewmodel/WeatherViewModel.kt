@@ -36,12 +36,6 @@ class WeatherViewModel @Inject constructor(
     private val _hasNetwork = MutableStateFlow(true)
     val hasNetwork: StateFlow<Boolean> = _hasNetwork.asStateFlow()
 
-    private val _hasLocationPermission = MutableStateFlow(false)
-    val hasLocationPermission: StateFlow<Boolean> = _hasLocationPermission.asStateFlow()
-
-    private val _coordinates = MutableStateFlow<Coordinates?>(null)
-    val coordinates: StateFlow<Coordinates?> = _coordinates.asStateFlow()
-
     fun setLoading() {
         _weatherState.value = WeatherState.Loading
     }
@@ -50,31 +44,9 @@ class WeatherViewModel @Inject constructor(
         _weatherState.value = WeatherState.Error(message)
     }
 
-    fun checkLocationPermissions(context: android.content.Context) {
-        _hasLocationPermission.value = locationManager.hasLocationPermission(context)
-    }
-
     fun checkNetworkConnection() {
         viewModelScope.launch {
             _hasNetwork.value = networkUtils.hasNetworkAccess()
-        }
-    }
-
-    fun updateLocationAndFetchWeather(context: android.content.Context) {
-        viewModelScope.launch {
-            try {
-                val location = locationManager.getCurrentLocation(context)
-                location?.let {
-                    val lat = it.latitude
-                    val lon = it.longitude
-                    _coordinates.value = Coordinates(lat, lon)
-                    fetchWeather(lat, lon)
-                } ?: setError("Unable to get current location")
-            } catch (e: SecurityException) {
-                setError("Location permission not granted")
-            } catch (e: Exception) {
-                setError(e.message ?: "Error getting location")
-            }
         }
     }
 
