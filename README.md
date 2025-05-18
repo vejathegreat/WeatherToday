@@ -1,108 +1,149 @@
-# Weather Today
+# 🌤️ Weather Today
 
-A modern Android weather application built with Jetpack Compose that provides real-time weather information based on the user's current location.
+**Weather Today** is a modern Android weather app built with **Jetpack Compose**, offering real-time weather updates based on your current location. Designed with a beautiful **Material 3 UI**, it seamlessly handles location permissions, network connectivity, and weather data updates.
 
-## Features
+---
 
-- Real-time weather information
-- Location-based weather updates
-- Network connectivity handling
-- Beautiful Material 3 UI
-- Permission handling with user feedback
-- Automatic refresh functionality
+## ✨ Features
 
-## Technologies & Libraries
+- 🔄 Real-time weather information  
+- 📍 Location-based weather updates  
+- 🌐 Network connectivity awareness  
+- 🎨 Modern Material 3 UI  
+- 🔐 Permission handling with user feedback  
+- ♻️ Automatic data refresh
 
-### Android Architecture Components
-- **Jetpack Compose** - Modern UI toolkit for building native Android UI
-- **ViewModel** - Lifecycle-aware data holder for UI
-- **Coroutines** - For asynchronous programming
-- **Flow** - For reactive programming
-- **Hilt** - For dependency injection
+## Designs
 
-### Networking
-- **Retrofit** (2.9.0) - Type-safe HTTP client
-- **OkHttp** (4.12.0) - HTTP client
-- **Gson** - For JSON serialization/deserialization
-- **OpenWeatherMap API** - Weather data provider
+![Screenshot 2025-05-16 at 22 24 29](https://github.com/user-attachments/assets/5bc5ced4-4cfa-4b88-86b3-7348b49a9e12)
 
-### Location Services
-- **Google Play Services Location** (21.0.1) - For accessing device location
-- **Accompanist Permissions** (0.32.0) - For handling runtime permissions
 
-### Testing
-- **JUnit** (4.13.2) - Unit testing framework
-- **MockK** (1.13.8) - Mocking library for Kotlin
-- **Turbine** (1.0.0) - Testing library for Flow
-- **Truth** (1.1.5) - Fluent assertions library
-- **Coroutines Test** (1.7.3) - For testing coroutines
-- **AndroidX Test** - For Android-specific testing
+---
 
-### UI Components
-- **Material 3** - Material Design components
-- **Coil** - Image loading library
+## 🛠️ Technologies & Libraries
 
-## Project Structure
+### 📱 Android Architecture
+- **Jetpack Compose** – Modern declarative UI toolkit  
+- **ViewModel** – Lifecycle-aware state management  
+- **Kotlin Coroutines** – Asynchronous programming  
+- **Flow** – Reactive data streams  
+- **Hilt** – Dependency injection  
 
-The project follows MVVM (Model-View-ViewModel) architecture pattern with clean architecture principles:
+### 🌐 Networking
+- **Retrofit** (2.9.0) – Type-safe HTTP client  
+- **OkHttp** (4.12.0) – Low-level HTTP client  
+- **Gson** – JSON serialization/deserialization  
+- **OpenWeatherMap API** – Weather data provider  
+
+### 📍 Location Services
+- **Google Play Services Location** (21.0.1) – Location access  
+- **Accompanist Permissions** (0.32.0) – Runtime permission management  
+
+### 🧪 Testing
+- **JUnit** (4.13.2) – Unit testing framework  
+- **MockK** (1.13.8) – Kotlin mocking library  
+- **Turbine** (1.0.0) – Flow testing  
+- **Truth** (1.1.5) – Fluent assertions  
+- **Coroutines Test** (1.7.3) – Coroutine testing tools  
+- **AndroidX Test** – Android testing support  
+
+### 🖼️ UI & Media
+- **Material 3** – Modern design system  
+- **Coil** – Fast image loading for Compose  
+
+---
+
+## 📁 Project Structure
+
+Follows the **MVVM** architecture with clean architecture principles:
 
 ```
 app/
 ├── data/
-│   ├── api/         # API interfaces and network-related code
-│   ├── di/          # Dependency injection modules
-│   ├── location/    # Location-related functionality
-│   ├── model/       # Data models
-│   ├── repository/  # Data repositories
-│   └── utils/       # Utility classes
+│   ├── api/         # Retrofit interfaces and network configuration
+│   ├── di/          # Dependency injection setup
+│   ├── location/    # Location services and permissions
+│   ├── model/       # Data models (DTOs)
+│   ├── repository/  # Data source implementations
+│   └── utils/       # Utility classes and helpers
 ├── domain/
-│   └── usecase/     # Business logic use cases
+│   └── usecase/     # Application business logic
 └── presentation/
-    ├── viewmodel/   # ViewModels
-    └── ui/          # UI components and themes
+    ├── viewmodel/   # ViewModels for UI state management
+    └── ui/          # UI screens, components, themes
 ```
 
-## Setup
+---
 
-1. Clone the repository
-2. Add your OpenWeatherMap API key in `local.properties`:
+## ⚙️ Setup Instructions
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/weather-today.git
    ```
+
+2. **Add your OpenWeatherMap API key** in `local.properties`:
+   ```properties
    WEATHER_API_KEY=your_api_key_here
    ```
-3. Build and run the project
 
-## Required Permissions
+3. **Build and run** the project in Android Studio.
+
+---
+
+## ⚠️ Build Note
+
+> 🧩 **Important:**  
+> For this project to build successfully, you **must** add your OpenWeatherMap API key to the `local.properties` file at the root of your project:
+
+```properties
+WEATHER_API_KEY=your_api_key_here
+```
+
+---
+
+## 🔐 Required Permissions
+
+The following permissions are used in `AndroidManifest.xml`:
 
 ```xml
-<!-- Network Permissions -->
+<!-- Internet access -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-<!-- Location Permissions -->
+<!-- Location access -->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 ```
 
-## API Reference
+---
 
-The application uses the OpenWeatherMap API to fetch weather data. The main endpoint used is:
+## 🌍 API Reference
 
+Weather data is fetched from the [OpenWeatherMap API](https://openweathermap.org/api):
+
+**Endpoint:**
 ```
 GET /weather
 ```
 
-Parameters:
-- `lat` - Latitude
-- `lon` - Longitude
-- `appid` - API Key
-- `units` - Measurement units (metric by default)
+**Parameters:**
+- `lat` – Latitude  
+- `lon` – Longitude  
+- `appid` – Your API key  
+- `units` – Measurement units (`metric`, `imperial`, etc.)
 
-## Contributing
+---
 
-Feel free to submit issues and enhancement requests.
+## 🤝 Contributing
 
-## License
+Contributions are welcome!  
+Feel free to [open an issue](https://github.com/your-username/weather-today/issues) or submit a pull request for new features or bug fixes.
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
